@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
-    <div class="container text-center mt-5">
+  <body class="bg-light">
+    <div class="container mt-5">
       <h2 id="study-title"></h2>
       <img id="study-image" src="" alt="Study Image" class="img-fluid mt-4" />
+      <p class="mt-4">Which of the following match the context of study?</p>
+      <form id="study-form">
+        <div id="study-options" class="mb-4"></div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <div id="result" class="mt-4"></div>
+      <div id="study-summary" class="mt-3"></div>
     </div>
     <script src="js/app.js"></script>
   </body>
