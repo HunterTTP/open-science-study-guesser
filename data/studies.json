@@ -10,6 +10,7 @@
     },
     "correct-answer": "B",
     "summary": "The study investigated microbial communities in plants grown on the ISS using both culturable and non-culturable methods, focusing on food safety and microbiome diversity. The VEG-03D technology demonstration successfully grew multiple plant species, and microbiological analysis confirmed the safety of the crops. The research revealed higher microbial diversity in roots and the rooting substrate compared to leaves, providing valuable insights for space agriculture.",
+    "source_name": "NASA",
     "source-url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-412"
   },
   {
@@ -23,6 +24,7 @@
     },
     "correct-answer": "C",
     "summary": "This study assessed sex-specific, multi-system immune and endocrine responses to simulated cosmic radiation using male and female mice. The research found sexually dimorphic changes in adrenal gland morphology, RNA expression, and immune phenotypes after exposure to simulated galactic cosmic ray (GCRsim) radiation. These findings highlight the necessity for personalized health approaches for astronauts during exploration missions.",
+    "source_name": "NASA",
     "source-url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-719"
   },
   {
@@ -36,6 +38,7 @@
     },
     "correct-answer": "A",
     "summary": "This study investigated the effects of microgravity on kidney proximal tubule epithelial cells (PTECs) and their response to serum exposure and vitamin D metabolism in space. The research found that microgravity did not significantly alter the fundamental biochemical pathways in the kidney proximal tubule during short-term exposure. These findings suggest that the kidney’s response to microgravity is stable over short periods, but further study is needed for long-term spaceflight.",
+    "source_name": "NASA",
     "source-url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-516"
   }  
 ]

@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function displayStudy(study) {
     studyImage.src = `images/${study.image}`;
-    studyTitle.textContent = study.id;
+    studyTitle.textContent = study.source_name + " - " + study.id;
     studyQuestion.hidden = false;
     populateStudyAnswers(study.answers);
     submitGuessForm.hidden = false;
