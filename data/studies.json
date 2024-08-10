@@ -24,5 +24,18 @@
     "correct-answer": "C",
     "summary": "This study assessed sex-specific, multi-system immune and endocrine responses to simulated cosmic radiation using male and female mice. The research found sexually dimorphic changes in adrenal gland morphology, RNA expression, and immune phenotypes after exposure to simulated galactic cosmic ray (GCRsim) radiation. These findings highlight the necessity for personalized health approaches for astronauts during exploration missions.",
     "source-url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-719"
-  }
+  },
+  {
+    "id": "OSD-516",
+    "image": "OSD-516.webp",
+    "answers": {
+      "A": "A: The effects of microgravity on kidney function and vitamin D metabolism in space",
+      "B": "B: The impact of spaceflight on cardiovascular health",
+      "C": "C: The evaluation of immune response alterations in space",
+      "D": "D: The study of bone density loss and its effects on long-term space missions"
+    },
+    "correct-answer": "A",
+    "summary": "This study investigated the effects of microgravity on kidney proximal tubule epithelial cells (PTECs) and their response to serum exposure and vitamin D metabolism in space. The research found that microgravity did not significantly alter the fundamental biochemical pathways in the kidney proximal tubule during short-term exposure. These findings suggest that the kidney’s response to microgravity is stable over short periods, but further study is needed for long-term spaceflight.",
+    "source-url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-516"
+  }  
 ]
