@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   let studiesMap = new Map();
   let studiesIterator;
+  const resultDiv = document.getElementById("result");
+  const summaryDiv = document.getElementById("study-summary");
 
   fetch("data/studies.json")
     .then((response) => response.json())
@@ -13,9 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const studyId = urlParams.get("studyId");
 
       if (studyId && studiesMap.has(studyId)) {
-        loadStudy(studyId);
+        loadStudyById(studyId);
       } else {
-        loadFirstStudy();
+        loadNextStudy();
       }
     })
     .catch((error) => console.error("Error fetching studies:", error));
@@ -24,47 +26,45 @@ document.addEventListener("DOMContentLoaded", function () {
     studies.forEach((study) => {
       studiesMap.set(study.id, study);
     });
-    studiesIterator = studiesMap.values(); // Create an iterator for studies
+    studiesIterator = studiesMap.values();
     console.log("Studies loaded into memory");
   }
 
-  function loadFirstStudy() {
-    console.log("Loading first study");
-    const firstStudy = studiesIterator.next().value;
-    if (firstStudy) {
-      loadStudy(firstStudy.id);
+  function loadNextStudy() {
+    console.log("Loading next study");
+    const nextStudy = studiesIterator.next().value;
+    if (nextStudy) {
+      loadStudyById(nextStudy.id);
     } else {
-      console.error("No studies available.");
+      resultDiv.innerHTML = '<span class="text-info">You have completed all the studies! Come back soon for more.</span>';
+      console.log("No more studies in memory.");
     }
   }
 
-  function loadStudy(studyId) {
+  function loadStudyById(studyId) {
     console.log("Loading studyId=" + studyId);
+    resetForm();
     const study = studiesMap.get(studyId);
     if (study) {
       document.getElementById("study-image").src = `images/${study.image}`;
-      document.getElementById(
-        "study-title"
-      ).textContent = `Study ID: ${study.id}`;
+      document.getElementById("study-title").textContent = `${study.id}`;
 
-      const studyOptions = document.getElementById("study-options");
-      studyOptions.innerHTML = "";
+      const studyAnswers = document.getElementById("study-answers");
+      studyAnswers.innerHTML = "";
 
       Object.keys(study.answers).forEach((key) => {
         const option = document.createElement("div");
         option.className = "form-check";
-        option.innerHTML = `<input class="form-check-input" type="radio" name="studyOption" id="option-${key}" value="${key}">
+        option.innerHTML = `<input class="form-check-input" type="radio" name="study-answer" id="option-${key}" value="${key}">
             <label class="form-check-label" for="option-${key}">${study.answers[key]}</label>`;
-        studyOptions.appendChild(option);
+        studyAnswers.appendChild(option);
       });
 
       document.getElementById("study-form").onsubmit = function (e) {
         e.preventDefault();
         const selectedOption = document.querySelector(
-          'input[name="studyOption"]:checked'
+          'input[name="study-answer"]:checked'
         );
-        const resultDiv = document.getElementById("result");
-        const summaryDiv = document.getElementById("study-summary");
 
         if (selectedOption) {
           if (selectedOption.value === study["correct-answer"]) {
@@ -81,19 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
             '<span class="text-warning">Please select an option.</span>';
         }
 
-        // Add event listener for the Next button
-        document
-          .getElementById("next-study")
-          ?.addEventListener("click", function () {
-            const nextStudy = studiesIterator.next().value;
-            if (nextStudy) {
-              loadStudy(nextStudy.id);
-              resetForm();
-            } else {
-              resultDiv.innerHTML =
-                '<span class="text-info">No more studies available.</span>';
-              summaryDiv.innerHTML = "";
-            }
+        document.getElementById("next-study").addEventListener("click", function () {
+            loadNextStudy();
           });
       };
     } else {
