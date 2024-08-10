@@ -7,18 +7,36 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
+  <nav class="navbar sticky-top" style="background-color: #142144">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="/">Open Science Study Guesser</a>
+    </div>
+  </nav>
   <body class="bg-light">
     <div class="d-flex justify-content-center">
-      <div id="study-container" class="m-4">
-        <h3>Open Science Study Guesser</h3>
-        <div style="max-width: 700px;">
-          <img id="study-image" src="" alt="Study Image" class="img-fluid rounded mt-3"/>
+      <div id="study-container" class="mx-4" style="max-width: 700px">
+        <div style="max-width: 700px">
+          <img
+            id="study-image"
+            src=""
+            alt="Study Image"
+            class="img-fluid rounded mt-3"
+          />
         </div>
         <h5 class="mt-3" id="study-title"></h5>
-        <p id="study-question" class="mt-3">Which of the following match the study from the image?</p>
+        <p id="study-question" class="mt-3">
+          Which of the following match the study from the image?
+        </p>
         <div id="study-answers" class=""></div>
         <form id="submit-guess-form">
-          <button id="submit-guess-button" type="submit" class="btn btn-primary mt-3" hidden>Submit</button>
+          <button
+            id="submit-guess-button"
+            type="submit"
+            class="btn btn-primary mt-3"
+            hidden
+          >
+            Submit
+          </button>
         </form>
         <div id="result" class="mt-3"></div>
         <div id="study-summary" class="mt-3"></div>

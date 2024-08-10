@@ -50,7 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function displayNoMoreStudiesMessage() {
     resetForm();
-    resultDiv.innerHTML = '<span class="text-info">You have completed all the studies! Come back soon for more.</span>';
+    resultDiv.innerHTML =
+      '<span class="text-info">You have completed all the studies! Come back soon for more.</span>';
   }
 
   function loadStudyById(studyId) {
@@ -119,15 +120,19 @@ document.addEventListener("DOMContentLoaded", function () {
     summaryDiv.innerHTML = `<p><strong>Summary:</strong> ${study.summary}
                             <a href="${study["source-url"]}" target="_blank" rel="noopener noreferrer">Learn more</a></p>
                             <button id="next-study" class="btn btn-secondary mt-3">Next Study</button>`;
-    document.getElementById("next-study").addEventListener("click", loadNextStudy);
+    document
+      .getElementById("next-study")
+      .addEventListener("click", loadNextStudy);
   }
 
   function displayIncorrectAnswer() {
-    resultDiv.innerHTML = '<span class="text-danger">Incorrect. Try again!</span>';
+    resultDiv.innerHTML =
+      '<span class="text-danger">Incorrect. Try again!</span>';
   }
 
   function displayNoSelectionWarning() {
-    resultDiv.innerHTML = '<span class="text-warning">Please select an option.</span>';
+    resultDiv.innerHTML =
+      '<span class="text-warning">Please select an option.</span>';
   }
 
   function resetForm() {
