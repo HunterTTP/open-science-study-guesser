@@ -5,8 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const summaryDiv = document.getElementById("study-summary");
   const studyImage = document.getElementById("study-image");
   const studyTitle = document.getElementById("study-title");
+  const studyQuestion = document.getElementById("study-question");
   const studyAnswers = document.getElementById("study-answers");
-  const studyForm = document.getElementById("study-form");
+  const submitGuessForm = document.getElementById("submit-guess-form");
+  const submitGuessButton = document.getElementById("submit-guess-button");
 
   fetchStudies();
 
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const study = studiesMap.get(studyId);
     if (study) {
       displayStudy(study);
-      setupStudyForm(study);
+      setupSubmitGuessButton(study);
     } else {
       console.error("Study ID not found.");
     }
@@ -65,7 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function displayStudy(study) {
     studyImage.src = `images/${study.image}`;
     studyTitle.textContent = study.id;
+    studyQuestion.hidden = false;
     populateStudyAnswers(study.answers);
+    submitGuessForm.hidden = false;
   }
 
   function populateStudyAnswers(answers) {
@@ -84,27 +88,24 @@ document.addEventListener("DOMContentLoaded", function () {
     return option;
   }
 
-  function setupStudyForm(study) {
-    studyForm.onsubmit = function (e) {
+  function setupSubmitGuessButton(study) {
+    submitGuessButton.removeAttribute("hidden");
+    submitGuessForm.onsubmit = function (e) {
       e.preventDefault();
-      handleFormSubmission(study);
+      const selectedOption = getSelectedAnswer();
+      if (selectedOption) {
+        processGuessSelection(selectedOption.value, study);
+      } else {
+        displayNoSelectionWarning();
+      }
     };
-  }
-
-  function handleFormSubmission(study) {
-    const selectedOption = getSelectedAnswer();
-    if (selectedOption) {
-      processAnswer(selectedOption.value, study);
-    } else {
-      displayNoSelectionWarning();
-    }
   }
 
   function getSelectedAnswer() {
     return document.querySelector('input[name="study-answer"]:checked');
   }
 
-  function processAnswer(selectedValue, study) {
+  function processGuessSelection(selectedValue, study) {
     if (selectedValue === study["correct-answer"]) {
       displayCorrectAnswer(study);
     } else {
@@ -113,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function displayCorrectAnswer(study) {
+    resetForm();
     resultDiv.innerHTML = '<span class="text-success">Correct!</span>';
     summaryDiv.innerHTML = `<p><strong>Summary:</strong> ${study.summary}
                             <a href="${study["source-url"]}" target="_blank" rel="noopener noreferrer">Learn more</a></p>
@@ -129,8 +131,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function resetForm() {
-    studyForm.reset();
-    resultDiv.innerHTML = "";
-    summaryDiv.innerHTML = "";
+    if (submitGuessForm) {
+      submitGuessButton.setAttribute("hidden", "hidden");
+    }
+    if (studyQuestion) {
+      studyQuestion.hidden = true;
+    }
+    if (studyAnswers) {
+      studyAnswers.innerHTML = "";
+    }
+    if (resultDiv) {
+      resultDiv.innerHTML = "";
+    }
+    if (summaryDiv) {
+      summaryDiv.innerHTML = "";
+    }
   }
 });

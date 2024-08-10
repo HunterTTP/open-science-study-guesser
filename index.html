@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body class="bg-light">
-    <div class="container mt-5">
-      <h2 id="study-title"></h2>
-      <img id="study-image" src="" alt="Study Image" class="img-fluid mt-4" />
-      <p class="mt-4">Which of the following match the context of study?</p>
-      <form id="study-form">
-        <div id="study-options" class="mb-4"></div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <div id="study-container" class="container mt-4">
+      <h2>Open Science Study Guesser</h2>
+      <img id="study-image" src="" alt="Study Image" class="img-fluid mt-3" />
+      <h4 class="mt-3" id="study-title"></h4>
+      <p id="study-question" class="mt-3">Which of the following match the study from the image?</p>
+      <div id="study-answers" class=""></div>
+      <form id="submit-guess-form">
+        <button id="submit-guess-button" type="submit" class="btn btn-primary mt-3" hidden>Submit</button>
       </form>
-      <div id="result" class="mt-4"></div>
+      <div id="result" class="mt-3"></div>
       <div id="study-summary" class="mt-3"></div>
     </div>
     <script src="js/app.js"></script>
