@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   let studiesMap = new Map();
-  let studiesIterator;
   const resultDiv = document.getElementById("result");
   const summaryDiv = document.getElementById("study-summary");
   const studyImage = document.getElementById("study-image");
@@ -10,22 +9,45 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitGuessForm = document.getElementById("submit-guess-form");
   const submitGuessButton = document.getElementById("submit-guess-button");
 
-  fetchStudies();
+  loadStudiesFromJson();
 
-  function fetchStudies() {
+  function loadStudiesFromJson() {
     fetch("data/studies.json")
       .then((response) => response.json())
-      .then(handleStudiesFetch)
+      .then(initStudies)
+      .then(loadInitialStudy)
       .catch((error) => console.error("Error fetching studies:", error));
   }
 
-  function handleStudiesFetch(studies) {
-    initStudies(studies);
-    const studyId = getUrlParameter("studyId");
-    if (studyId && studiesMap.has(studyId)) {
+  function initStudies(studies) {
+    studies.forEach((study) => studiesMap.set(parseInt(study.id), study));
+  }
+
+  function loadInitialStudy() {
+    const studyId = parseInt(getUrlParameter("studyId"));
+    if (studiesMap.has(studyId)) {
       loadStudyById(studyId);
     } else {
-      loadNextStudy();
+      loadStudyById(1);
+    }
+  }
+
+  function loadStudyById(studyId) {
+    const study = studiesMap.get(studyId);
+    if (study) {
+      displayStudy(study);
+      setupGuessSubmission(study);
+    } else {
+      console.error("Study ID not found=" + studyId);
+    }
+  }
+
+  function loadNextStudy() {
+    const studyId = parseInt(getUrlParameter("studyId"));
+    if (studiesMap.has(studyId + 1)) {
+      loadStudyById(studyId + 1);
+    } else {
+      displayNoMoreStudiesMessage();
     }
   }
 
@@ -34,43 +56,26 @@ document.addEventListener("DOMContentLoaded", function () {
     return urlParams.get(name);
   }
 
-  function initStudies(studies) {
-    studies.forEach((study) => studiesMap.set(study.id, study));
-    studiesIterator = studiesMap.values();
-  }
-
-  function loadNextStudy() {
-    const nextStudy = studiesIterator.next().value;
-    if (nextStudy) {
-      loadStudyById(nextStudy.id);
-    } else {
-      displayNoMoreStudiesMessage();
-    }
-  }
-
   function displayNoMoreStudiesMessage() {
     resetForm();
     resultDiv.innerHTML =
       '<span class="text-info">You have completed all the studies! Come back soon for more.</span>';
   }
 
-  function loadStudyById(studyId) {
-    resetForm();
-    const study = studiesMap.get(studyId);
-    if (study) {
-      displayStudy(study);
-      setupSubmitGuessButton(study);
-    } else {
-      console.error("Study ID not found.");
-    }
-  }
-
   function displayStudy(study) {
+    setStudyUrl(study.id);
+    resetForm();
     studyImage.src = `images/${study.image}`;
     studyTitle.textContent = study.source_name + " - " + study.id;
     studyQuestion.hidden = false;
     populateStudyAnswers(study.answers);
     submitGuessForm.hidden = false;
+  }
+
+  function setStudyUrl(studyId) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("studyId", studyId);
+    window.history.replaceState(null, "", url.toString());
   }
 
   function populateStudyAnswers(answers) {
@@ -89,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return option;
   }
 
-  function setupSubmitGuessButton(study) {
+  function setupGuessSubmission(study) {
     submitGuessButton.removeAttribute("hidden");
     submitGuessForm.onsubmit = function (e) {
       e.preventDefault();

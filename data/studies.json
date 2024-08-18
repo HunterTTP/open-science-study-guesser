@@ -1,6 +1,7 @@
 [
   {
-    "id": "OSD-412",
+    "id": 1,
+    "name": "OSD-412",
     "image": "OSD-412.webp",
     "answers": {
       "A": "A: The development of new plant species for space agriculture",
@@ -14,7 +15,8 @@
     "source-url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-412"
   },
   {
-    "id": "OSD-719",
+    "id": 2,
+    "name": "OSD-719",
     "image": "OSD-719.webp",
     "answers": {
       "A": "A: The effects of cosmic radiation on DNA damage and cellular function in space",
@@ -28,7 +30,8 @@
     "source-url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-719"
   },
   {
-    "id": "OSD-516",
+    "id": 3,
+    "name": "OSD-516",
     "image": "OSD-516.webp",
     "answers": {
       "A": "A: The effects of microgravity on kidney function and vitamin D metabolism in space",
